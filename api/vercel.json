@@ -1,0 +1,4 @@
+{
+  "version": 2,
+  "builds": [{ "src": "api/animate-text.js", "use": "@vercel/node" }]
+}
