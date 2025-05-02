@@ -1,3 +1,11 @@
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '1mb',
+    },
+  },
+};
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).send('Method Not Allowed');
@@ -5,7 +13,7 @@ export default async function handler(req, res) {
 
   const { text } = req.body;
   if (!text) {
-    return res.status(400).send('Missing "text" field.');
+    return res.status(400).send('Missing \"text\" field.');
   }
 
   const animations = ['fade-in', 'slide-up', 'zoom-in'];
@@ -58,4 +66,4 @@ export default async function handler(req, res) {
 
   res.setHeader('Content-Type', 'text/html');
   res.status(200).send(html);
-                                }
+}
