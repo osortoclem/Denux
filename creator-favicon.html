@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generador de Favicon</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+    input, button {
+      margin: 10px;
+      padding: 10px;
+    }
+    canvas {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Generador de Favicon</h1>
+  <p>Sube una imagen y elige el tamaño para generar un favicon.</p>
+
+  <input type="file" id="imageInput" accept="image/*"><br>
+  <label for="size">Tamaño (en píxeles):</label>
+  <input type="number" id="size" value="32" min="1" max="512"><br>
+  <button onclick="generarFavicon()">Generar</button>
+
+  <div>
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <a id="downloadLink" style="display: none;" download="favicon.png">Descargar Favicon</a>
+
+  <script>
+    function generarFavicon() {
+      const fileInput = document.getElementById('imageInput');
+      const size = parseInt(document.getElementById('size').value);
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      if (!fileInput.files.length) {
+        alert("Por favor, selecciona una imagen.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+          canvas.width = size;
+          canvas.height = size;
+          ctx.clearRect(0, 0, size, size);
+          ctx.drawImage(img, 0, 0, size, size);
+
+          const link = document.getElementById('downloadLink');
+          link.href = canvas.toDataURL("image/png");
+          link.style.display = 'inline-block';
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+  </script>
+</body>
+</html>
