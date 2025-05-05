@@ -5,78 +5,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Generador Profesional de Favicon</title>
   <style>
-    body {
-      font-family: sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-      text-align: center;
+    :root {
+      --main-color: #4F46E5;
+      --text-color: #333;
+      --bg-color: #f9f9f9;
+      --card-bg: #ffffff;
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-color);
+      margin: 0;
+      padding: 20px;
+      color: var(--text-color);
+    }
+
     .container {
-      background: white;
       max-width: 700px;
       margin: auto;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
     }
+
+    h1 {
+      color: var(--main-color);
+      margin-bottom: 10px;
+    }
+
     input, select, button {
-      margin: 10px;
       padding: 10px;
-    }
-    canvas {
-      margin: 20px auto;
-      display: block;
+      font-size: 1rem;
+      margin: 10px 0;
       border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 100%;
     }
-    .mode {
-      margin-bottom: 20px;
+
+    button {
+      background: var(--main-color);
+      color: white;
+      border: none;
+      cursor: pointer;
     }
+
+    button:hover {
+      background: #3730A3;
+    }
+
     .color-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
-      justify-content: center;
+      gap: 6px;
+      margin: 8px 0;
     }
+
     .color-item {
-      width: 25px;
-      height: 25px;
-      border-radius: 3px;
-      cursor: pointer;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
       border: 2px solid transparent;
+      cursor: pointer;
     }
+
     .color-item:hover {
-      border-color: black;
+      border-color: #000;
+    }
+
+    canvas {
+      display: block;
+      margin: 20px auto;
+      border: 1px solid #ddd;
+    }
+
+    .section {
+      margin-bottom: 25px;
+    }
+
+    .label {
+      text-align: left;
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+
+    #downloadLink {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: white;
+      background: #16A34A;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+      input, select, button {
+        font-size: 0.95rem;
+      }
+
+      .color-item {
+        width: 24px;
+        height: 24px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Generador de Favicon</h1>
-    <p>Elige una imagen o crea tu favicon con texto.</p>
+    <p>Sube una imagen o crea un favicon con texto y colores personalizados.</p>
 
-    <div class="mode">
+    <div class="section">
+      <label class="label">Modo:</label>
       <label><input type="radio" name="modo" value="imagen" checked> Subir Imagen</label>
       <label><input type="radio" name="modo" value="texto"> Texto Personalizado</label>
     </div>
 
-    <!-- Modo Imagen -->
-    <div id="modo-imagen">
+    <div class="section" id="modo-imagen">
       <input type="file" id="imageInput" accept="image/*">
     </div>
 
-    <!-- Modo Texto -->
-    <div id="modo-texto" style="display: none;">
-      <input type="text" id="textInput" placeholder="Texto para favicon" maxlength="2">
-      <br>
-      <label>Color de fondo: </label>
+    <div class="section" id="modo-texto" style="display: none;">
+      <input type="text" id="textInput" placeholder="Texto para favicon (máx. 2 letras)" maxlength="2">
+
+      <label class="label">Color de fondo</label>
       <input type="color" id="bgColor" value="#000000">
       <div class="color-list" id="bgColorList"></div>
-      <br>
-      <label>Color del texto: </label>
+
+      <label class="label">Color del texto</label>
       <input type="color" id="textColor" value="#ffffff">
       <div class="color-list" id="textColorList"></div>
-      <br>
-      <label>Fuente:</label>
+
+      <label class="label">Fuente</label>
       <select id="fontSelect">
         <option value="Arial">Arial</option>
         <option value="Verdana">Verdana</option>
@@ -86,13 +152,15 @@
       </select>
     </div>
 
-    <label>Tamaño:</label>
-    <input type="number" id="size" value="32" min="16" max="512">
-    <br>
+    <div class="section">
+      <label class="label">Tamaño del Favicon (px)</label>
+      <input type="number" id="size" value="32" min="16" max="512">
+    </div>
+
     <button onclick="generarFavicon()">Generar Favicon</button>
 
-    <canvas id="canvas"></canvas>
-    <a id="downloadLink" style="display: none;" download="favicon.png">Descargar Favicon</a>
+    <canvas id="canvas" width="32" height="32"></canvas>
+    <a id="downloadLink" download="favicon.png">Descargar Favicon</a>
   </div>
 
   <script>
@@ -102,17 +170,15 @@
 
     modoRadios.forEach(radio => {
       radio.addEventListener('change', () => {
-        if (radio.value === 'imagen') {
-          modoImagen.style.display = 'block';
-          modoTexto.style.display = 'none';
-        } else {
-          modoImagen.style.display = 'none';
-          modoTexto.style.display = 'block';
-        }
+        modoImagen.style.display = radio.value === 'imagen' ? 'block' : 'none';
+        modoTexto.style.display = radio.value === 'texto' ? 'block' : 'none';
       });
     });
 
-    const coloresBase = ['#000000', '#ffffff', '#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#333333', '#999999'];
+    const coloresBase = [
+      '#000000', '#ffffff', '#e11d48', '#16a34a', '#2563eb',
+      '#f59e0b', '#8b5cf6', '#10b981', '#64748b', '#d97706'
+    ];
 
     function llenarColores(containerId, inputId) {
       const container = document.getElementById(containerId);
@@ -174,10 +240,9 @@
     }
 
     function mostrarDescarga() {
-      const link = document.getElementById('downloadLink');
       const canvas = document.getElementById('canvas');
+      const link = document.getElementById('downloadLink');
       link.href = canvas.toDataURL("image/png");
-      link.style.display = 'inline-block';
     }
   </script>
 </body>
