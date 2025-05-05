@@ -3,44 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prueba de Favicon</title>
+  <title>Demostración de Favicon</title>
 
-  <!-- Favicon estándar -->
-  <link rel="icon" type="https://i.postimg.cc/q7GCjsg6/Orion-X-logo-48x48.png" sizes="32x32" href="https://denux.vercel.app/favicon-32x32.png">
-  <link rel="icon" type="https://i.postimg.cc/q7GCjsg6/Orion-X-logo-48x48.png" sizes="16x16" href="https://denux.vercel.app/favicon-16x16.png">
-  <link rel="icon" type="https://i.postimg.cc/q7GCjsg6/Orion-X-logo-48x48.png" sizes="96x96" href="https://denux.vercel.app/favicon-96x96.png">
+  <!-- Favicon base (32x32 PNG) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="https://ejemplo.com/favicon-32x32.png">
 
-  <!-- Favicon SVG (moderno) -->
-  <link rel="icon" type="https://i.postimg.cc/q7GCjsg6/Orion-X-logo-48x48.png" href="https://denux.vercel.app/favicon.svg">
-
-  <!-- Fallback antiguo -->
-  <link rel="https://i.postimg.cc/q7GCjsg6/Orion-X-logo-48x48.png" href="https://denux.vercel.app/favicon.ico" type="image/x-icon">
-
-  <!-- Apple iOS -->
-  <link rel="https://i.postimg.cc/q7GCjsg6/Orion-X-logo-48x48.png sizes="180x180" href="https://denux.vercel.app/apple-touch-icon.png">
-
-  <!-- Manifest PWA -->
-  <link rel="https://i.postimg.cc/q7GCjsg6/Orion-X-logo-48x48.png" href="https://tusitio.com/site.webmanifest">
-
-  <!-- Windows y tema -->
-  <meta name="https://i.postimg.cc/q7GCjsg6/Orion-X-logo-48x48.png" content="#ffffff">
-  <meta name="https://i.postimg.cc/q7GCjsg6/Orion-X-logo-48x48.png" content="https://tusitio.com/mstile-144x144.png">
+  <!-- Otros tipos de favicons -->
+  <link rel="icon" type="image/png" sizes="16x16" href="https://ejemplo.com/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="https://ejemplo.com/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="https://ejemplo.com/favicon.svg">
+  <link rel="shortcut icon" href="https://ejemplo.com/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://ejemplo.com/apple-touch-icon.png">
+  <link rel="manifest" href="https://ejemplo.com/site.webmanifest">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="https://ejemplo.com/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
 
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding-top: 100px;
-      background-color: #f5f5f5;
-    }
-    h1 {
-      color: #333;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>¡Favicon cargado con éxito!</h1>
-  <p>Sube este archivo y los íconos a tu servidor en la misma URL base.</p>
+  <div class="container">
+    <h1>Demostración de Favicon (Fabicom)</h1>
+    <p>Un <strong>favicon</strong> es una pequeña imagen que aparece en la pestaña del navegador, marcadores y otras interfaces.</p>
+
+    <img src="https://ejemplo.com/favicon-32x32.png" alt="Ejemplo de Favicon" class="favicon-img">
+
+    <h2>Códigos listos para usar:</h2>
+
+    <!-- Lista de favicons -->
+    <div class="favicon-block">
+      <p><strong>Favicon PNG (32x32):</strong> usado por la mayoría de navegadores modernos.</p>
+      <pre><code id="code1">&lt;link rel="icon" type="image/png" sizes="32x32" href="https://ejemplo.com/favicon-32x32.png"&gt;</code></pre>
+      <button onclick="copiarCodigo('code1')">Copiar</button>
+    </div>
+
+    <div class="favicon-block">
+      <p><strong>Favicon PNG (16x16):</strong> tamaño clásico, útil en marcadores y pestañas pequeñas.</p>
+      <pre><code id="code2">&lt;link rel="icon" type="image/png" sizes="16x16" href="https://ejemplo.com/favicon-16x16.png"&gt;</code></pre>
+      <button onclick="copiarCodigo('code2')">Copiar</button>
+    </div>
+
+    <div class="favicon-block">
+      <p><strong>Favicon SVG:</strong> imagen vectorial escalable, ideal para pantallas de alta resolución.</p>
+      <pre><code id="code3">&lt;link rel="icon" type="image/svg+xml" href="https://ejemplo.com/favicon.svg"&gt;</code></pre>
+      <button onclick="copiarCodigo('code3')">Copiar</button>
+    </div>
+
+    <div class="favicon-block">
+      <p><strong>Favicon ICO:</strong> compatible con navegadores antiguos (como Internet Explorer).</p>
+      <pre><code id="code4">&lt;link rel="shortcut icon" href="https://ejemplo.com/favicon.ico"&gt;</code></pre>
+      <button onclick="copiarCodigo('code4')">Copiar</button>
+    </div>
+
+    <div class="favicon-block">
+      <p><strong>Apple Touch Icon:</strong> para pantallas de inicio en dispositivos iOS.</p>
+      <pre><code id="code5">&lt;link rel="apple-touch-icon" sizes="180x180" href="https://ejemplo.com/apple-touch-icon.png"&gt;</code></pre>
+      <button onclick="copiarCodigo('code5')">Copiar</button>
+    </div>
+
+    <div class="favicon-block">
+      <p><strong>Manifest JSON:</strong> archivo para Progressive Web Apps (PWA).</p>
+      <pre><code id="code6">&lt;link rel="manifest" href="https://ejemplo.com/site.webmanifest"&gt;</code></pre>
+      <button onclick="copiarCodigo('code6')">Copiar</button>
+    </div>
+
+    <div class="favicon-block">
+      <p><strong>Windows Tile:</strong> ícono y color para la pantalla de inicio en Windows.</p>
+      <pre><code id="code7">&lt;meta name="msapplication-TileColor" content="#ffffff"&gt;
+&lt;meta name="msapplication-TileImage" content="https://ejemplo.com/mstile-144x144.png"&gt;</code></pre>
+      <button onclick="copiarCodigo('code7')">Copiar</button>
+    </div>
+
+    <div class="favicon-block">
+      <p><strong>Color de tema:</strong> define el color de la interfaz del navegador en móviles.</p>
+      <pre><code id="code8">&lt;meta name="theme-color" content="#ffffff"&gt;</code></pre>
+      <button onclick="copiarCodigo('code8')">Copiar</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
