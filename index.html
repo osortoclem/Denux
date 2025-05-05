@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Demostración de Favicon</title>
 
-  <!-- Favicon base (32x32 PNG) -->
+  <!-- Favicon base y variantes -->
   <link rel="icon" type="image/png" sizes="32x32" href="https://ejemplo.com/favicon-32x32.png">
-
-  <!-- Otros tipos de favicons -->
   <link rel="icon" type="image/png" sizes="16x16" href="https://ejemplo.com/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="96x96" href="https://ejemplo.com/favicon-96x96.png">
   <link rel="icon" type="image/svg+xml" href="https://ejemplo.com/favicon.svg">
@@ -22,67 +20,45 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <nav class="menu">
+    <div class="brand">Favicon Demo</div>
+    <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+  <ul class="menu-items" id="menuItems">
+    <li><a href="#">Inicio</a></li>
+    <li><a href="#">Crear Favicon</a></li>
+    <li><a href="#">Documentación</a></li>
+    <li><a href="#">Contacto</a></li>
+  </ul>
+
   <div class="container">
     <h1>Demostración de Favicon (Fabicom)</h1>
     <p>Un <strong>favicon</strong> es una pequeña imagen que aparece en la pestaña del navegador, marcadores y otras interfaces.</p>
-
     <img src="https://i.postimg.cc/sfN6GGsf/favicon-in-several-places.png" alt="Ejemplo de Favicon" style="max-width: 100%; height: auto;">
 
-<button onclick="window.location.href='creator-favicon.html'">crear un favicon</button>
+    <button onclick="window.location.href='creator-favicon.html'">Crear un Favicon</button>
 
-    <h2>Códigos listos para usar:</h2>
+    <h2>Códigos listos para copiar:</h2>
 
-    <!-- Lista de favicons -->
-    <div class="favicon-block">
-      <p><strong>Favicon PNG (32x32):</strong> usado por la mayoría de navegadores modernos.</p>
-      <pre><code id="code1">&lt;link rel="icon" type="image/png" sizes="32x32" href="https://ejemplo.com/favicon-32x32.png"&gt;</code></pre>
-      <button onclick="copiarCodigo('code1')">Copiar</button>
-    </div>
-
-    <div class="favicon-block">
-      <p><strong>Favicon PNG (16x16):</strong> tamaño clásico, útil en marcadores y pestañas pequeñas.</p>
-      <pre><code id="code2">&lt;link rel="icon" type="image/png" sizes="16x16" href="https://ejemplo.com/favicon-16x16.png"&gt;</code></pre>
-      <button onclick="copiarCodigo('code2')">Copiar</button>
-    </div>
-
-    <div class="favicon-block">
-      <p><strong>Favicon SVG:</strong> imagen vectorial escalable, ideal para pantallas de alta resolución.</p>
-      <pre><code id="code3">&lt;link rel="icon" type="image/svg+xml" href="https://ejemplo.com/favicon.svg"&gt;</code></pre>
-      <button onclick="copiarCodigo('code3')">Copiar</button>
-    </div>
-
-    <div class="favicon-block">
-      <p><strong>Favicon ICO:</strong> compatible con navegadores antiguos (como Internet Explorer).</p>
-      <pre><code id="code4">&lt;link rel="shortcut icon" href="https://ejemplo.com/favicon.ico"&gt;</code></pre>
-      <button onclick="copiarCodigo('code4')">Copiar</button>
-    </div>
-
-    <div class="favicon-block">
-      <p><strong>Apple Touch Icon:</strong> para pantallas de inicio en dispositivos iOS.</p>
-      <pre><code id="code5">&lt;link rel="apple-touch-icon" sizes="180x180" href="https://ejemplo.com/apple-touch-icon.png"&gt;</code></pre>
-      <button onclick="copiarCodigo('code5')">Copiar</button>
-    </div>
-
-    <div class="favicon-block">
-      <p><strong>Manifest JSON:</strong> archivo para Progressive Web Apps (PWA).</p>
-      <pre><code id="code6">&lt;link rel="manifest" href="https://ejemplo.com/site.webmanifest"&gt;</code></pre>
-      <button onclick="copiarCodigo('code6')">Copiar</button>
-    </div>
-
-    <div class="favicon-block">
-      <p><strong>Windows Tile:</strong> ícono y color para la pantalla de inicio en Windows.</p>
-      <pre><code id="code7">&lt;meta name="msapplication-TileColor" content="#ffffff"&gt;
-&lt;meta name="msapplication-TileImage" content="https://ejemplo.com/mstile-144x144.png"&gt;</code></pre>
-      <button onclick="copiarCodigo('code7')">Copiar</button>
-    </div>
-
-    <div class="favicon-block">
-      <p><strong>Color de tema:</strong> define el color de la interfaz del navegador en móviles.</p>
-      <pre><code id="code8">&lt;meta name="theme-color" content="#ffffff"&gt;</code></pre>
-      <button onclick="copiarCodigo('code8')">Copiar</button>
-    </div>
+    <pre><code>&lt;link rel="icon" type="image/png" sizes="32x32" href="https://ejemplo.com/favicon-32x32.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="16x16" href="https://ejemplo.com/favicon-16x16.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="96x96" href="https://ejemplo.com/favicon-96x96.png"&gt;
+&lt;link rel="icon" type="image/svg+xml" href="https://ejemplo.com/favicon.svg"&gt;
+&lt;link rel="shortcut icon" href="https://ejemplo.com/favicon.ico"&gt;
+&lt;link rel="apple-touch-icon" sizes="180x180" href="https://ejemplo.com/apple-touch-icon.png"&gt;
+&lt;link rel="manifest" href="https://ejemplo.com/site.webmanifest"&gt;
+&lt;meta name="msapplication-TileColor" content="#ffffff"&gt;
+&lt;meta name="msapplication-TileImage" content="https://ejemplo.com/mstile-144x144.png"&gt;
+&lt;meta name="theme-color" content="#ffffff"&gt;</code></pre>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    function toggleMenu() {
+      document.getElementById("menuToggle").classList.toggle("active");
+      document.getElementById("menuItems").classList.toggle("active");
+    }
+  </script>
 </body>
 </html>
