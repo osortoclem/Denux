@@ -153,9 +153,17 @@
     </div>
 
     <div class="section">
-      <label class="label">Tamaño del Favicon (px)</label>
-      <input type="number" id="size" value="32" min="16" max="512">
-    </div>
+      <label class="label">Selecciona Tamaño del Favicon</label>
+<select id="size">
+  <option value="16">16x16 (clásico)</option>
+  <option value="32" selected>32x32 (recomendado)</option>
+  <option value="48">48x48</option>
+  <option value="64">64x64</option>
+  <option value="96">96x96</option>
+  <option value="128">128x128</option>
+  <option value="256">256x256</option>
+  <option value="512">512x512</option>
+</select>
 
     <button onclick="generarFavicon()">Generar Favicon</button>
 
