@@ -1,68 +1,183 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Generador de Favicon</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generador Profesional de Favicon</title>
   <style>
     body {
       font-family: sans-serif;
+      background: #f4f4f4;
       padding: 20px;
       text-align: center;
     }
-    input, button {
+    .container {
+      background: white;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    input, select, button {
       margin: 10px;
       padding: 10px;
     }
     canvas {
-      margin-top: 20px;
+      margin: 20px auto;
+      display: block;
       border: 1px solid #ccc;
+    }
+    .mode {
+      margin-bottom: 20px;
+    }
+    .color-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      justify-content: center;
+    }
+    .color-item {
+      width: 25px;
+      height: 25px;
+      border-radius: 3px;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .color-item:hover {
+      border-color: black;
     }
   </style>
 </head>
 <body>
-  <h1>Generador de Favicon</h1>
-  <p>Sube una imagen y elige el tamaño para generar un favicon.</p>
+  <div class="container">
+    <h1>Generador de Favicon</h1>
+    <p>Elige una imagen o crea tu favicon con texto.</p>
 
-  <input type="file" id="imageInput" accept="image/*"><br>
-  <label for="size">Tamaño (en píxeles):</label>
-  <input type="number" id="size" value="32" min="1" max="512"><br>
-  <button onclick="generarFavicon()">Generar</button>
+    <div class="mode">
+      <label><input type="radio" name="modo" value="imagen" checked> Subir Imagen</label>
+      <label><input type="radio" name="modo" value="texto"> Texto Personalizado</label>
+    </div>
 
-  <div>
+    <!-- Modo Imagen -->
+    <div id="modo-imagen">
+      <input type="file" id="imageInput" accept="image/*">
+    </div>
+
+    <!-- Modo Texto -->
+    <div id="modo-texto" style="display: none;">
+      <input type="text" id="textInput" placeholder="Texto para favicon" maxlength="2">
+      <br>
+      <label>Color de fondo: </label>
+      <input type="color" id="bgColor" value="#000000">
+      <div class="color-list" id="bgColorList"></div>
+      <br>
+      <label>Color del texto: </label>
+      <input type="color" id="textColor" value="#ffffff">
+      <div class="color-list" id="textColorList"></div>
+      <br>
+      <label>Fuente:</label>
+      <select id="fontSelect">
+        <option value="Arial">Arial</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Impact">Impact</option>
+      </select>
+    </div>
+
+    <label>Tamaño:</label>
+    <input type="number" id="size" value="32" min="16" max="512">
+    <br>
+    <button onclick="generarFavicon()">Generar Favicon</button>
+
     <canvas id="canvas"></canvas>
+    <a id="downloadLink" style="display: none;" download="favicon.png">Descargar Favicon</a>
   </div>
 
-  <a id="downloadLink" style="display: none;" download="favicon.png">Descargar Favicon</a>
-
   <script>
+    const modoRadios = document.getElementsByName('modo');
+    const modoImagen = document.getElementById('modo-imagen');
+    const modoTexto = document.getElementById('modo-texto');
+
+    modoRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.value === 'imagen') {
+          modoImagen.style.display = 'block';
+          modoTexto.style.display = 'none';
+        } else {
+          modoImagen.style.display = 'none';
+          modoTexto.style.display = 'block';
+        }
+      });
+    });
+
+    const coloresBase = ['#000000', '#ffffff', '#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#333333', '#999999'];
+
+    function llenarColores(containerId, inputId) {
+      const container = document.getElementById(containerId);
+      coloresBase.forEach(color => {
+        const div = document.createElement('div');
+        div.className = 'color-item';
+        div.style.backgroundColor = color;
+        div.onclick = () => document.getElementById(inputId).value = color;
+        container.appendChild(div);
+      });
+    }
+
+    llenarColores('bgColorList', 'bgColor');
+    llenarColores('textColorList', 'textColor');
+
     function generarFavicon() {
-      const fileInput = document.getElementById('imageInput');
       const size = parseInt(document.getElementById('size').value);
       const canvas = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
+      canvas.width = size;
+      canvas.height = size;
+      ctx.clearRect(0, 0, size, size);
 
-      if (!fileInput.files.length) {
-        alert("Por favor, selecciona una imagen.");
-        return;
-      }
+      const modo = [...modoRadios].find(r => r.checked).value;
 
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const img = new Image();
-        img.onload = function () {
-          canvas.width = size;
-          canvas.height = size;
-          ctx.clearRect(0, 0, size, size);
-          ctx.drawImage(img, 0, 0, size, size);
-
-          const link = document.getElementById('downloadLink');
-          link.href = canvas.toDataURL("image/png");
-          link.style.display = 'inline-block';
+      if (modo === 'imagen') {
+        const fileInput = document.getElementById('imageInput');
+        if (!fileInput.files.length) {
+          alert("Selecciona una imagen.");
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = new Image();
+          img.onload = function () {
+            ctx.drawImage(img, 0, 0, size, size);
+            mostrarDescarga();
+          };
+          img.src = e.target.result;
         };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(fileInput.files[0]);
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        const text = document.getElementById('textInput').value || "A";
+        const bgColor = document.getElementById('bgColor').value;
+        const textColor = document.getElementById('textColor').value;
+        const font = document.getElementById('fontSelect').value;
+
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, size, size);
+
+        ctx.fillStyle = textColor;
+        ctx.font = `${size * 0.6}px ${font}`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(text.toUpperCase(), size / 2, size / 2);
+
+        mostrarDescarga();
+      }
+    }
+
+    function mostrarDescarga() {
+      const link = document.getElementById('downloadLink');
+      const canvas = document.getElementById('canvas');
+      link.href = canvas.toDataURL("image/png");
+      link.style.display = 'inline-block';
     }
   </script>
 </body>
