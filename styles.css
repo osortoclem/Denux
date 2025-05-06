@@ -1,3 +1,89 @@
+/* Estilos del menú */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.menu-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+}
+
+.menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.menu-btn__burger {
+  background-color: #333;
+  height: 4px;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.menu-btn.active .menu-btn__burger:nth-child(1) {
+  transform: rotate(45deg);
+  position: relative;
+  top: 7px;
+}
+
+.menu-btn.active .menu-btn__burger:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-btn.active .menu-btn__burger:nth-child(3) {
+  transform: rotate(-45deg);
+  position: relative;
+  top: -7px;
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  right: -300px;
+  width: 200px;
+  height: 100%;
+  background-color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  transition: 0.3s;
+  z-index: 9;
+}
+
+.menu.active {
+  right: 0;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu ul li {
+  margin: 20px 0;
+}
+
+.menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+.menu ul li a:hover {
+  color: #f39c12;
+}
 
 /* styles.css */
 
