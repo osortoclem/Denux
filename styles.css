@@ -1,3 +1,18 @@
+.menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 250px;
+  height: 100vh;
+  background: #2c3e50;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.menu.active {
+  left: 0;
+}
+
 /* Menú lateral oculto por defecto */
 .menu {
   position: fixed;
