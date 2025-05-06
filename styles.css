@@ -23,11 +23,11 @@ body {
   text-align: center;
 }
 
-/* Menú lateral oculto por defecto */
+/* Menú lateral */
 .menu {
   position: fixed;
   top: 0;
-  right: -250px; /* fuera de la vista */
+  right: -250px;
   width: 250px;
   height: 100vh;
   background-color: #2c3e50;
@@ -36,14 +36,6 @@ body {
   justify-content: center;
   transition: right 0.3s ease-in-out;
   z-index: 1000;
-  box-shadow: none; /* asegúrate que no haya sombra visible */
-  pointer-events: none; /* evita que interfiera cuando está oculto */
-}
-
-/* Cuando el menú está activo, se muestra */
-.menu.active {
-  right: 0;
-  pointer-events: auto;
 }
 
 .menu-btn__burger {
