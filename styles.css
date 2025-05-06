@@ -130,12 +130,6 @@ pre {
   text-align: left;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .container {
-    margin: 120px 10px 40px;
-    padding: 15px;
-  }
 
   .menu {
     width: 100%;
